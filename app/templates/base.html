@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MyEduConnect{% endblock %} — Learn Smarter, Achieve More</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="/" class="nav-brand">
+            <span class="brand-icon">◈</span>
+            <span class="brand-text">MyEdu<strong>Connect</strong></span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="/courses">Courses</a></li>
+            {% if session.get('user_id') %}
+                <li><a href="/dashboard">My Learning</a></li>
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/logout" class="btn btn-outline">Logout</a></li>
+            {% else %}
+                <li><a href="/login" class="btn btn-outline">Log In</a></li>
+                <li><a href="/register" class="btn btn-primary">Sign Up Free</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<!-- Flash messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-container">
+      {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<main>
+{% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <span class="brand-icon">◈</span>
+            <span class="brand-text">MyEdu<strong>Connect</strong></span>
+            <p>Empowering Malaysian students since 2019.</p>
+        </div>
+        <div class="footer-links">
+            <strong>Platform</strong>
+            <a href="/courses">Browse Courses</a>
+            <a href="/register">Join Free</a>
+            <a href="/api/courses">API</a>
+        </div>
+        <div class="footer-links">
+            <strong>Company</strong>
+            <a href="#">About Us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="footer-links">
+            <strong>Support</strong>
+            <a href="#">Help Centre</a>
+            <a href="#">Terms of Service</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2024 MyEduConnect Sdn Bhd (1234567-X). Cyberjaya, Selangor. All rights reserved.</p>
+        <!-- Server: nginx/1.21.0 | Python 3.11 | PostgreSQL 14 -->
+    </div>
+</footer>
+
+<script src="/static/js/main.js"></script>
+</body>
+</html>

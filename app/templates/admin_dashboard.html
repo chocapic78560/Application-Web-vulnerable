@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — MyEduConnect</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-container">
+      {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<div class="admin-layout">
+    <aside class="admin-sidebar">
+        <div class="sidebar-brand">◈ MyEduConnect<br><small style="font-weight:400; opacity:.5;">Admin Panel</small></div>
+        <nav style="margin-top:16px;">
+            <a href="/admin/dashboard" class="active">📊 Dashboard</a>
+            <a href="/admin/users">👥 Students</a>
+            <a href="/admin/network">🔧 Network Tools</a>
+            <a href="/courses">📚 Courses</a>
+            <a href="/admin/logout" style="margin-top:auto; position:absolute; bottom:24px; width:100%;">⬅ Logout</a>
+        </nav>
+    </aside>
+
+    <main class="admin-main">
+        <h1 class="admin-title">Dashboard</h1>
+        <p style="color:var(--gray-500); margin-top:-16px; margin-bottom:24px;">Welcome, <strong>{{ session.get('admin_user') }}</strong>.</p>
+
+        <!-- Stats -->
+        <div class="stat-cards">
+            <div class="stat-card">
+                <div class="stat-card-label">Total Students</div>
+                <div class="stat-card-value">{{ total_users }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">Courses</div>
+                <div class="stat-card-value">{{ total_courses }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">Enrolments</div>
+                <div class="stat-card-value">{{ total_enroll }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-label">Revenue (RM)</div>
+                <div class="stat-card-value">{{ "%.0f"|format(total_revenue) }}</div>
+            </div>
+        </div>
+
+        <!-- Recent students -->
+        <div class="card">
+            <h3>Recent Students — PII Data</h3>
+            <table>
+                <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>IC Number</th><th>Role</th><th>Joined</th></tr></thead>
+                <tbody>
+                    {% for u in users %}
+                    <tr>
+                        <td>{{ u[0] }}</td>
+                        <td><strong>{{ u[3] or u[1] }}</strong></td>
+                        <td>{{ u[2] }}</td>
+                        <td>{{ u[4] or '—' }}</td>
+                        <td style="font-family:monospace; font-size:13px;">{{ u[5] or '—' }}</td>
+                        <td><span class="badge {% if u[6]=='admin' %}badge-orange{% elif u[6]=='teacher' %}badge-blue{% else %}badge-gray{% endif %}">{{ u[6] }}</span></td>
+                        <td style="font-size:13px; color:var(--gray-500);">{{ u[7].strftime('%d %b %Y') if u[7] else '—' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Recent payments -->
+        <div class="card">
+            <h3>Recent Payments</h3>
+            <table>
+                <thead><tr><th>ID</th><th>User ID</th><th>Card Holder</th><th>Card (last 4)</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead>
+                <tbody>
+                    {% for p in payments %}
+                    <tr>
+                        <td>{{ p[0] }}</td>
+                        <td>{{ p[1] }}</td>
+                        <td>{{ p[2] }}</td>
+                        <td style="font-family:monospace;">••••{{ p[3] }}</td>
+                        <td>RM {{ "%.2f"|format(p[4]) }}</td>
+                        <td><span class="badge badge-green">{{ p[5] }}</span></td>
+                        <td style="font-size:13px; color:var(--gray-500);">{{ p[6].strftime('%d %b %Y') if p[6] else '—' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+</body>
+</html>

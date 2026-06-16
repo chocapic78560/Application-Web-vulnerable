@@ -1,0 +1,184 @@
+/* MyEduConnect — Main Stylesheet */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --blue-600: #2563eb;
+    --blue-500: #3b82f6;
+    --blue-100: #dbeafe;
+    --blue-50:  #eff6ff;
+    --gray-900: #111827;
+    --gray-700: #374151;
+    --gray-500: #6b7280;
+    --gray-200: #e5e7eb;
+    --gray-100: #f3f4f6;
+    --white:    #ffffff;
+    --green-500:#22c55e;
+    --red-500:  #ef4444;
+    --orange-400:#fb923c;
+    --radius:   8px;
+    --shadow:   0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06);
+    --shadow-md:0 4px 6px rgba(0,0,0,.07), 0 2px 4px rgba(0,0,0,.06);
+}
+
+body { font-family: 'Inter', sans-serif; color: var(--gray-900); background: var(--white); line-height: 1.6; }
+a { color: var(--blue-600); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; }
+
+/* ── Navbar ── */
+.navbar { background: var(--white); border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 100; }
+.nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.nav-brand { display: flex; align-items: center; gap: 8px; font-size: 20px; color: var(--gray-900); }
+.nav-brand:hover { text-decoration: none; }
+.brand-icon { color: var(--blue-600); font-size: 22px; }
+.brand-text strong { color: var(--blue-600); }
+.nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
+.nav-links a { color: var(--gray-700); font-size: 15px; font-weight: 500; }
+.nav-links a:hover { color: var(--blue-600); text-decoration: none; }
+
+/* ── Buttons ── */
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: var(--radius); font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: all .15s; text-decoration: none !important; }
+.btn-primary { background: var(--blue-600); color: var(--white); }
+.btn-primary:hover { background: #1d4ed8; color: var(--white); }
+.btn-outline { border: 1.5px solid var(--blue-600); color: var(--blue-600); background: transparent; }
+.btn-outline:hover { background: var(--blue-50); }
+.btn-sm { padding: 6px 14px; font-size: 13px; }
+.btn-danger { background: var(--red-500); color: var(--white); }
+
+/* ── Flash messages ── */
+.flash-container { max-width: 1200px; margin: 16px auto 0; padding: 0 24px; }
+.flash { padding: 12px 16px; border-radius: var(--radius); font-size: 14px; margin-bottom: 8px; }
+.flash-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+.flash-danger  { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+.flash-info    { background: var(--blue-50); color: #1e40af; border: 1px solid var(--blue-100); }
+
+/* ── Hero ── */
+.hero { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #3b82f6 100%); color: var(--white); padding: 80px 24px; text-align: center; }
+.hero h1 { font-size: 48px; font-weight: 700; line-height: 1.15; margin-bottom: 16px; }
+.hero h1 span { color: #93c5fd; }
+.hero p { font-size: 20px; opacity: .85; max-width: 600px; margin: 0 auto 32px; }
+.hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-hero { padding: 14px 28px; font-size: 16px; border-radius: var(--radius); font-weight: 700; cursor: pointer; border: none; transition: all .15s; }
+.btn-hero-primary { background: var(--white); color: var(--blue-600); }
+.btn-hero-primary:hover { background: #f0f4ff; text-decoration: none; color: var(--blue-600); }
+.btn-hero-outline { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,.6); }
+.btn-hero-outline:hover { background: rgba(255,255,255,.1); text-decoration: none; color: var(--white); }
+
+/* ── Stats bar ── */
+.stats-bar { background: var(--gray-100); border-bottom: 1px solid var(--gray-200); padding: 20px 24px; }
+.stats-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
+.stat { text-align: center; }
+.stat-num { font-size: 28px; font-weight: 700; color: var(--blue-600); }
+.stat-label { font-size: 13px; color: var(--gray-500); }
+
+/* ── Section ── */
+.section { padding: 60px 24px; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-header { margin-bottom: 40px; }
+.section-header h2 { font-size: 32px; font-weight: 700; }
+.section-header p { color: var(--gray-500); margin-top: 8px; }
+
+/* ── Course grid ── */
+.course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+.course-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); transition: box-shadow .15s, transform .15s; }
+.course-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.course-thumb { height: 160px; background: linear-gradient(135deg, var(--blue-100) 0%, #bfdbfe 100%); display: flex; align-items: center; justify-content: center; font-size: 48px; }
+.course-body { padding: 20px; }
+.course-badge { display: inline-block; background: var(--blue-50); color: var(--blue-600); font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 100px; margin-bottom: 10px; }
+.course-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--gray-900); }
+.course-desc { font-size: 14px; color: var(--gray-500); margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.course-footer { display: flex; align-items: center; justify-content: space-between; }
+.course-price { font-size: 18px; font-weight: 700; color: var(--blue-600); }
+
+/* ── Auth forms ── */
+.auth-page { min-height: calc(100vh - 130px); display: flex; align-items: center; justify-content: center; background: var(--gray-100); padding: 40px 24px; }
+.auth-card { background: var(--white); border-radius: 16px; padding: 40px; width: 100%; max-width: 440px; box-shadow: var(--shadow-md); }
+.auth-card h2 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+.auth-card .subtitle { color: var(--gray-500); font-size: 14px; margin-bottom: 28px; }
+
+/* ── Form elements ── */
+.form-group { margin-bottom: 18px; }
+label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 6px; color: var(--gray-700); }
+input[type=text], input[type=email], input[type=password], input[type=tel], input[type=number], select, textarea {
+    width: 100%; padding: 10px 14px; border: 1.5px solid var(--gray-200); border-radius: var(--radius);
+    font-size: 15px; font-family: inherit; color: var(--gray-900); background: var(--white);
+    transition: border-color .15s; outline: none;
+}
+input:focus, select:focus, textarea:focus { border-color: var(--blue-500); box-shadow: 0 0 0 3px rgba(59,130,246,.1); }
+.form-full { width: 100%; }
+.form-hint { font-size: 12px; color: var(--gray-500); margin-top: 4px; }
+.divider { text-align: center; margin: 16px 0; color: var(--gray-500); font-size: 13px; }
+
+/* ── Dashboard ── */
+.page-header { background: var(--blue-600); color: var(--white); padding: 40px 24px 50px; }
+.page-header h1 { font-size: 28px; font-weight: 700; }
+.page-header p { opacity: .8; margin-top: 4px; }
+.page-body { max-width: 1200px; margin: -20px auto 0; padding: 0 24px 60px; }
+.card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 24px; box-shadow: var(--shadow); margin-bottom: 24px; }
+.card h3 { font-size: 18px; font-weight: 600; margin-bottom: 16px; }
+
+/* ── Tables ── */
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { background: var(--gray-100); font-weight: 600; padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--gray-200); }
+td { padding: 10px 14px; border-bottom: 1px solid var(--gray-200); color: var(--gray-700); }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--gray-100); }
+
+/* ── Badge ── */
+.badge { display: inline-block; padding: 2px 10px; border-radius: 100px; font-size: 12px; font-weight: 600; }
+.badge-blue   { background: var(--blue-50);  color: var(--blue-600); }
+.badge-green  { background: #dcfce7;          color: #166534; }
+.badge-orange { background: #fff7ed;          color: #9a3412; }
+.badge-gray   { background: var(--gray-100);  color: var(--gray-500); }
+
+/* ── Admin panel ── */
+.admin-layout { display: flex; min-height: calc(100vh - 64px); }
+.admin-sidebar { width: 240px; background: var(--gray-900); padding: 24px 0; flex-shrink: 0; }
+.admin-sidebar .sidebar-brand { padding: 0 20px 24px; border-bottom: 1px solid rgba(255,255,255,.1); color: var(--white); font-weight: 700; font-size: 16px; }
+.admin-sidebar a { display: block; padding: 10px 20px; color: rgba(255,255,255,.7); font-size: 14px; transition: all .15s; }
+.admin-sidebar a:hover { background: rgba(255,255,255,.05); color: var(--white); text-decoration: none; }
+.admin-sidebar a.active { background: var(--blue-600); color: var(--white); }
+.admin-main { flex: 1; background: var(--gray-100); padding: 32px; overflow-auto; }
+.admin-title { font-size: 24px; font-weight: 700; margin-bottom: 24px; }
+.stat-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.stat-card { background: var(--white); border-radius: 12px; padding: 20px; box-shadow: var(--shadow); }
+.stat-card-label { font-size: 13px; color: var(--gray-500); }
+.stat-card-value { font-size: 32px; font-weight: 700; color: var(--blue-600); margin-top: 4px; }
+
+/* ── Network tool ── */
+.terminal { background: #0f172a; color: #a2f3a2; font-family: monospace; font-size: 13px; padding: 16px; border-radius: var(--radius); white-space: pre-wrap; min-height: 80px; margin-top: 12px; }
+
+/* ── Profile ── */
+.profile-avatar { width: 80px; height: 80px; border-radius: 50%; background: var(--blue-100); display: flex; align-items: center; justify-content: center; font-size: 32px; margin-bottom: 16px; }
+
+/* ── Footer ── */
+.footer { background: var(--gray-900); color: rgba(255,255,255,.7); padding: 48px 24px 24px; margin-top: 60px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
+.footer-brand .brand-text { font-size: 18px; color: var(--white); }
+.footer-brand p { font-size: 14px; margin-top: 8px; color: rgba(255,255,255,.5); }
+.footer-links strong { color: var(--white); font-size: 14px; display: block; margin-bottom: 12px; }
+.footer-links a { display: block; font-size: 14px; color: rgba(255,255,255,.5); margin-bottom: 8px; }
+.footer-links a:hover { color: var(--white); text-decoration: none; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 20px; text-align: center; font-size: 13px; color: rgba(255,255,255,.3); }
+
+/* ── Course detail ── */
+.course-detail { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+.course-detail h1 { font-size: 34px; font-weight: 700; margin-bottom: 12px; }
+.course-detail-meta { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; align-items: center; }
+.course-enroll-box { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 24px; box-shadow: var(--shadow-md); }
+.price-big { font-size: 36px; font-weight: 700; color: var(--blue-600); margin-bottom: 16px; }
+
+/* ── Payment ── */
+.payment-page { max-width: 520px; margin: 40px auto; padding: 0 24px; }
+
+/* ── Upload ── */
+.upload-area { border: 2px dashed var(--gray-200); border-radius: var(--radius); padding: 32px; text-align: center; background: var(--gray-100); cursor: pointer; }
+.upload-area:hover { border-color: var(--blue-500); background: var(--blue-50); }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 32px; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .nav-links .btn { display: none; }
+    .admin-sidebar { display: none; }
+}

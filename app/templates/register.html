@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Sign Up Free{% endblock %}
+{% block content %}
+<div class="auth-page">
+    <div class="auth-card">
+        <h2>Create your account</h2>
+        <p class="subtitle">Join 80,000+ Malaysian students learning online.</p>
+        <form method="POST">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="full_name" placeholder="e.g. Ahmad bin Abdullah" required>
+            </div>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" placeholder="Choose a username" required>
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="email" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" name="phone" placeholder="+60 12-345 6789">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Min. 8 characters" required>
+                <p class="form-hint">Use a mix of letters, numbers and symbols.</p>
+            </div>
+            <button type="submit" class="btn btn-primary form-full" style="margin-top:8px;">Create Account</button>
+        </form>
+        <p style="text-align:center; font-size:14px; color:var(--gray-500); margin-top:16px;">
+            Already have an account? <a href="/login">Log in</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

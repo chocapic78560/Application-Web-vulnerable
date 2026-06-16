@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Students — Admin MyEduConnect</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="admin-layout">
+    <aside class="admin-sidebar">
+        <div class="sidebar-brand">◈ MyEduConnect<br><small style="font-weight:400; opacity:.5;">Admin Panel</small></div>
+        <nav style="margin-top:16px;">
+            <a href="/admin/dashboard">📊 Dashboard</a>
+            <a href="/admin/users" class="active">👥 Students</a>
+            <a href="/admin/network">🔧 Network Tools</a>
+            <a href="/admin/logout" style="margin-top:auto;">⬅ Logout</a>
+        </nav>
+    </aside>
+    <main class="admin-main">
+        <h1 class="admin-title">All Students</h1>
+        <div class="card">
+            <table>
+                <thead><tr><th>ID</th><th>Username</th><th>Full Name</th><th>Email</th><th>Phone</th><th>IC Number</th><th>Role</th></tr></thead>
+                <tbody>
+                    {% for u in users %}
+                    <tr>
+                        <td>{{ u[0] }}</td>
+                        <td>{{ u[1] }}</td>
+                        <td>{{ u[3] or '—' }}</td>
+                        <td>{{ u[2] }}</td>
+                        <td>{{ u[4] or '—' }}</td>
+                        <td style="font-family:monospace; font-size:13px;">{{ u[5] or '—' }}</td>
+                        <td><span class="badge badge-gray">{{ u[6] }}</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:14
+    container_name: myeduconnect_db
+    environment:
+      POSTGRES_DB: myeduconnect
+      POSTGRES_USER: edu_admin
+      POSTGRES_PASSWORD: Educ@2024!
+    ports:
+      - "5432:5432"          # VULN: DB port exposed on all interfaces (misconfiguration)
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - edunet
+
+  app:
+    build: ./app
+    container_name: myeduconnect_app
+    # On fait exécuter les commandes par root au démarrage pour fixer les droits du volume,
+    # puis on lance Flask en tant que www-data (UID 33)
+    user: "0:0"
+    command: >
+      bash -c "
+      echo -e 'DB_USER=edu_admin \n DB_PASS=Educ@2024! \n DB_NAME=myeduconnect \n DB_HOST=db' > /app/static/.config.old &&
+      chown root:33 /app/app.py &&
+      chmod 640 /app/app.py &&
+      chown 33:33 /app/static/.config.old &&
+      chmod 644 /app/static/.config.old &&
+      chown -R 33:33 /app/static/uploads &&
+      exec su -s /bin/bash www-data -c 'python app.py'
+      "
+    environment:
+      DATABASE_URL: postgresql://edu_admin:Educ%402024!@db:5432/myeduconnect
+      SECRET_KEY: mysecretkey123
+      FLASK_ENV: development
+      FLASK_DEBUG: "1"
+    volumes:
+      - ./app:/app
+    cap_add:
+      - NET_RAW
+    depends_on:
+      - db
+    networks:
+      - edunet
+    expose:
+      - "5000"
+
+  nginx:
+    image: nginx:1.21
+    container_name: myeduconnect_nginx
+    ports:
+      - "80:80"              # VULN: HTTP only, no TLS (network-layer cleartext)
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./app/static:/var/www/static
+    depends_on:
+      - app
+    networks:
+      - edunet
+
+  ssh:
+    build: ./docker/ssh
+    container_name: myeduconnect_ssh
+    ports:
+      - "22:22"              # VULN: SSH exposed with weak credentials (user:password123)
+    networks:
+      - edunet
+
+networks:
+  edunet:
+    driver: bridge
+
+volumes:
+  pgdata:

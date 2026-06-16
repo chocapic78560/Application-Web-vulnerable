@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}My Learning Dashboard{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>Welcome back, {{ session.get('full_name', session.get('username')) }} 👋</h1>
+    <p>Continue where you left off or explore new courses.</p>
+</div>
+<div class="page-body">
+    <div class="card">
+        <h3>My Enrolled Courses</h3>
+        {% if enrollments %}
+        <table>
+            <thead>
+                <tr><th>Course</th><th>Category</th><th>Enrolled On</th><th>Status</th><th></th></tr>
+            </thead>
+            <tbody>
+                {% for e in enrollments %}
+                <tr>
+                    <td><strong>{{ e[1] }}</strong></td>
+                    <td><span class="badge badge-blue">{{ e[2] }}</span></td>
+                    <td style="color:var(--gray-500); font-size:13px;">{{ e[3].strftime('%d %b %Y') if e[3] else '—' }}</td>
+                    <td><span class="badge badge-green">{{ e[4] }}</span></td>
+                    <td><a href="/course/{{ e[0] }}" class="btn btn-outline btn-sm">Continue →</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div style="text-align:center; padding:40px; color:var(--gray-500);">
+            <div style="font-size:48px; margin-bottom:12px;">📚</div>
+            <p>You haven't enrolled in any courses yet.</p>
+            <a href="/courses" class="btn btn-primary" style="margin-top:16px;">Browse Courses</a>
+        </div>
+        {% endif %}
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+        <a href="/courses" class="card" style="text-decoration:none; display:block;">
+            <h3>📖 Browse Courses</h3>
+            <p style="color:var(--gray-500); font-size:14px;">Discover new subjects and expand your knowledge.</p>
+        </a>
+        <a href="/profile" class="card" style="text-decoration:none; display:block;">
+            <h3>⚙️ My Profile</h3>
+            <p style="color:var(--gray-500); font-size:14px;">Update your personal information and profile photo.</p>
+        </a>
+    </div>
+</div>
+{% endblock %}

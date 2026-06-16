@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Browse Courses{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>Browse Courses</h1>
+    <p>{{ courses|length }} courses available across all subjects.</p>
+</div>
+<div class="page-body">
+    <!-- Search form -->
+    <div class="card" style="margin-bottom:24px;">
+        <form method="GET" style="display:flex; gap:12px;">
+            <input type="text" name="q" value="{{ search }}" placeholder="Search courses (e.g. Mathematics, Chemistry...)" style="flex:1;">
+            <button type="submit" class="btn btn-primary">Search</button>
+            {% if search %}<a href="/courses" class="btn btn-outline">Clear</a>{% endif %}
+        </form>
+    </div>
+
+    {% if courses %}
+    <div class="course-grid">
+        {% set icons = {'Mathematics': '📐', 'Science': '🔬', 'Language': '📝', 'Humanities': '🏛️'} %}
+        {% for course in courses %}
+        <div class="course-card">
+            <div class="course-thumb">{{ icons.get(course[3], '📚') }}</div>
+            <div class="course-body">
+                <span class="course-badge">{{ course[3] }}</span>
+                <div class="course-title">{{ course[1] }}</div>
+                <div class="course-desc">{{ course[2] }}</div>
+                <div class="course-footer">
+                    <span class="course-price">RM {{ "%.2f"|format(course[4]) }}</span>
+                    <a href="/course/{{ course[0] }}" class="btn btn-primary btn-sm">View</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div style="text-align:center; padding:60px; color:var(--gray-500);">
+        <div style="font-size:48px; margin-bottom:12px;">🔍</div>
+        <p>No courses found for "<strong>{{ search }}</strong>".</p>
+        <a href="/courses" class="btn btn-outline" style="margin-top:16px;">Show All Courses</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

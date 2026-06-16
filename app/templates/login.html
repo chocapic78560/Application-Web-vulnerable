@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Log In{% endblock %}
+{% block content %}
+<div class="auth-page">
+    <div class="auth-card">
+        <h2>Welcome back</h2>
+        <p class="subtitle">Log in to continue your learning journey.</p>
+        <form method="POST">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" placeholder="e.g. ali_hassan" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary form-full" style="margin-top:8px;">Log In</button>
+        </form>
+        <div class="divider">— or —</div>
+        <p style="text-align:center; font-size:14px; color:var(--gray-500);">
+            New here? <a href="/register">Create a free account</a>
+        </p>
+        <p style="text-align:center; font-size:13px; margin-top:12px; color:var(--gray-500);">
+            School/admin? <a href="/admin/login">Admin portal →</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

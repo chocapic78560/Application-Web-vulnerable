@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}{{ course[1] }}{% endblock %}
+{% block content %}
+<div class="course-detail">
+    <div class="course-detail-meta">
+        <span class="course-badge">{{ course[5] }}</span>
+    </div>
+    <h1>{{ course[1] }}</h1>
+
+    <div style="display:grid; grid-template-columns:2fr 1fr; gap:32px; margin-top:24px;">
+        <div>
+            <div class="course-thumb" style="height:220px; border-radius:12px; margin-bottom:24px; font-size:64px;">
+                📚
+            </div>
+            <h2 style="font-size:20px; margin-bottom:12px;">About This Course</h2>
+            <p style="color:var(--gray-700); line-height:1.7;">{{ course[2] }}</p>
+
+            <div style="margin-top:24px; padding:20px; background:var(--gray-100); border-radius:var(--radius);">
+                <strong>What you'll learn:</strong>
+                <ul style="margin-top:12px; padding-left:20px; color:var(--gray-700); font-size:14px; line-height:2;">
+                    <li>Complete syllabus coverage aligned to Malaysian curriculum</li>
+                    <li>Past year SPM/STPM paper walkthroughs</li>
+                    <li>HD video lectures with downloadable notes</li>
+                    <li>Practice quizzes and mock exams</li>
+                    <li>Direct Q&A with the instructor</li>
+                </ul>
+            </div>
+        </div>
+
+        <div>
+            <div class="course-enroll-box">
+                <div class="price-big">RM {{ "%.2f"|format(course[4]) }}</div>
+                <p style="color:var(--gray-500); font-size:13px; margin-bottom:16px;">One-time payment — lifetime access</p>
+                {% if session.get('user_id') %}
+                    <a href="/payment/{{ course[0] }}" class="btn btn-primary form-full" style="text-align:center; justify-content:center;">Enrol Now</a>
+                    <form method="POST" action="/enroll/{{ course[0] }}" style="margin-top:8px;">
+                        <button type="submit" class="btn btn-outline form-full">Add to My Courses</button>
+                    </form>
+                {% else %}
+                    <a href="/register" class="btn btn-primary form-full" style="text-align:center; justify-content:center;">Sign Up to Enrol</a>
+                    <a href="/login" class="btn btn-outline form-full" style="margin-top:8px; text-align:center; justify-content:center;">Log In</a>
+                {% endif %}
+                <div style="margin-top:16px; font-size:13px; color:var(--gray-500);">
+                    <p>✓ 30-day money-back guarantee</p>
+                    <p>✓ Access on all devices</p>
+                    <p>✓ Certificate of completion</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

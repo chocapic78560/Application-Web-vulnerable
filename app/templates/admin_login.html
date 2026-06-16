@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyEduConnect — Admin Portal</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body style="background:var(--gray-900);">
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div style="position:fixed; top:16px; left:50%; transform:translateX(-50%); z-index:999;">
+      {% for category, message in messages %}
+        <div class="flash flash-{{ category }}" style="min-width:320px; box-shadow:0 4px 12px rgba(0,0,0,.2);">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<div style="min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;">
+    <div style="width:100%; max-width:400px;">
+
+        <div style="text-align:center; margin-bottom:32px;">
+            <div style="font-size:40px; margin-bottom:8px; color:var(--blue-500);">◈</div>
+            <h1 style="color:var(--white); font-size:22px; font-weight:700;">MyEduConnect</h1>
+            <p style="color:rgba(255,255,255,.5); font-size:14px; margin-top:4px;">Administrator Portal</p>
+        </div>
+
+        <div class="auth-card" style="background:#1e293b; border:1px solid rgba(255,255,255,.1);">
+            <h2 style="color:var(--white); margin-bottom:6px;">Admin Sign In</h2>
+            <p class="subtitle" style="color:rgba(255,255,255,.5);">Authorised personnel only.</p>
+
+            <!-- VULN: this form is vulnerable to SQL injection -->
+            <!-- Try: username = admin'-- (bypass password check) -->
+            <form method="POST">
+                <div class="form-group">
+                    <label style="color:rgba(255,255,255,.7);">Username</label>
+                    <input type="text" name="username" placeholder="admin" required
+                           style="background:#0f172a; border-color:rgba(255,255,255,.1); color:var(--white);">
+                </div>
+                <div class="form-group">
+                    <label style="color:rgba(255,255,255,.7);">Password</label>
+                    <input type="password" name="password" placeholder="••••••••" required
+                           style="background:#0f172a; border-color:rgba(255,255,255,.1); color:var(--white);">
+                </div>
+                <button type="submit" class="btn btn-primary form-full" style="margin-top:8px;">Sign In</button>
+            </form>
+        </div>
+
+        <p style="text-align:center; color:rgba(255,255,255,.3); font-size:12px; margin-top:16px;">
+            MyEduConnect Sdn Bhd © 2024 — Internal Use Only
+        </p>
+    </div>
+</div>
+</body>
+</html>

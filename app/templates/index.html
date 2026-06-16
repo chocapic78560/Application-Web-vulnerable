@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}MyEduConnect — Malaysia's #1 Online Learning Platform{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="hero">
+    <h1>Learn Smarter.<br><span>Achieve More.</span></h1>
+    <p>Malaysia's leading online platform for SPM, STPM & tertiary students. Join 80,000+ learners today.</p>
+    <div class="hero-btns">
+        <a href="/register" class="btn-hero btn-hero-primary">Start Learning Free</a>
+        <a href="/courses" class="btn-hero btn-hero-outline">Browse Courses</a>
+    </div>
+</section>
+
+<!-- Stats bar -->
+<div class="stats-bar">
+    <div class="stats-inner">
+        <div class="stat"><div class="stat-num">80,000+</div><div class="stat-label">Active Students</div></div>
+        <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Expert Courses</div></div>
+        <div class="stat"><div class="stat-num">120+</div><div class="stat-label">Qualified Teachers</div></div>
+        <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Pass Rate</div></div>
+    </div>
+</div>
+
+<!-- Featured Courses -->
+<section class="section">
+    <div class="section-inner">
+        <div class="section-header">
+            <h2>Featured Courses</h2>
+            <p>Comprehensive courses aligned with Malaysian secondary and tertiary syllabuses.</p>
+        </div>
+        <div class="course-grid">
+            {% set icons = {'Mathematics': '📐', 'Science': '🔬', 'Language': '📝', 'Humanities': '🏛️'} %}
+            {% for course in courses %}
+            <div class="course-card">
+                <div class="course-thumb">
+                    {{ icons.get(course[5], '📚') }}
+                </div>
+                <div class="course-body">
+                    <span class="course-badge">{{ course[5] }}</span>
+                    <div class="course-title">{{ course[1] }}</div>
+                    <div class="course-desc">{{ course[2] }}</div>
+                    <div class="course-footer">
+                        <span class="course-price">RM {{ "%.2f"|format(course[4]) }}</span>
+                        <a href="/course/{{ course[0] }}" class="btn btn-primary btn-sm">View Course</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div style="text-align:center; margin-top:32px;">
+            <a href="/courses" class="btn btn-outline">View All Courses →</a>
+        </div>
+    </div>
+</section>
+
+<!-- Why MyEduConnect -->
+<section class="section" style="background:var(--gray-100);">
+    <div class="section-inner">
+        <div class="section-header" style="text-align:center;">
+            <h2>Why Students Choose Us</h2>
+            <p>Trusted by students and parents across Peninsular Malaysia, Sabah & Sarawak.</p>
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap:24px;">
+            <div class="card" style="text-align:center;">
+                <div style="font-size:36px; margin-bottom:12px;">🎯</div>
+                <h3 style="font-size:16px;">Exam-Focused Content</h3>
+                <p style="color:var(--gray-500); font-size:14px;">Every lesson aligned to SPM, STPM & MUET exam formats.</p>
+            </div>
+            <div class="card" style="text-align:center;">
+                <div style="font-size:36px; margin-bottom:12px;">📱</div>
+                <h3 style="font-size:16px;">Learn on Any Device</h3>
+                <p style="color:var(--gray-500); font-size:14px;">Access courses on desktop, tablet or mobile — anytime, anywhere.</p>
+            </div>
+            <div class="card" style="text-align:center;">
+                <div style="font-size:36px; margin-bottom:12px;">👨‍🏫</div>
+                <h3 style="font-size:16px;">Expert Instructors</h3>
+                <p style="color:var(--gray-500); font-size:14px;">Taught by certified Malaysian educators with 10+ years experience.</p>
+            </div>
+            <div class="card" style="text-align:center;">
+                <div style="font-size:36px; margin-bottom:12px;">💳</div>
+                <h3 style="font-size:16px;">Affordable Plans</h3>
+                <p style="color:var(--gray-500); font-size:14px;">Starting from RM 34.90/course. Pay once, access forever.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="text-align:center;">
+    <div class="section-inner">
+        <h2 style="font-size:36px; margin-bottom:12px;">Ready to Excel?</h2>
+        <p style="color:var(--gray-500); margin-bottom:28px;">Join 80,000+ students who are already achieving their best results.</p>
+        <a href="/register" class="btn btn-primary" style="padding:14px 32px; font-size:16px;">Create Free Account</a>
+    </div>
+</section>
+{% endblock %}
