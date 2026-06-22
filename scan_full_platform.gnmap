@@ -1,0 +1,4 @@
+# Nmap 7.99 scan initiated Sat Jun 20 18:41:06 2026 as: /usr/lib/nmap/nmap --privileged -sS -sU -sV -sC -oA scan_full_platform localhost
+Host: 127.0.0.1 (localhost)	Status: Up
+Host: 127.0.0.1 (localhost)	Ports: 22/open/tcp//ssh//OpenSSH 8.9p1 Ubuntu 3ubuntu0.15 (Ubuntu Linux; protocol 2.0)/, 80/open/tcp//http//nginx 1.21.6/, 5432/open/tcp//postgresql//PostgreSQL DB/	Ignored State: closed (1997)
+# Nmap done at Sat Jun 20 18:41:13 2026 -- 1 IP address (1 host up) scanned in 7.00 seconds
