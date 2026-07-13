@@ -101,4 +101,3 @@ Ce projet a été construit pour s'entraîner à un cycle complet de sécurité 
 
 - **Build** — concevoir une architecture réaliste et y introduire des vulnérabilités documentées (OWASP Top 10 / CWE).
 - **Attaque** — reconnaissance, scan (Nmap, Nuclei, Nikto, Gobuster), exploitation manuelle (SQLi, RCE, IDOR, upload de web shell, brute-force SSH, élévation de privilèges locale).
-- **Défense** — remédiation du code, durcissement réseau (pare-feu, WAF, IDS), rotation des secrets, re-tests de non-régression.
