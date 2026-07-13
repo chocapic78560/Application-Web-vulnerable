@@ -2,8 +2,6 @@
 
 Plateforme web (fictive) reproduisant un site e-learning, **volontairement vulnérable**, construite dans le cadre d'un exercice personnel de pentest / sécurité applicative (Build → Attaque → Défense). Le projet simule une plateforme d'apprentissage en ligne ("MyEduConnect Sdn Bhd") pour servir de bac à sable réaliste : inscription/connexion, catalogue de cours, inscription aux cours, paiement simulé, gestion de profil avec upload de photo, panneau d'administration (dashboard, fiches étudiants, outil de diagnostic réseau) et une API REST.
 
-> ⚠️ **Usage strictement pédagogique.** Cette application contient des vulnérabilités **intentionnelles** (injections SQL, RCE, IDOR, identifiants faibles, etc.). Ne jamais l'exposer sur un réseau public ni l'utiliser avec de vraies données. À déployer uniquement dans un environnement isolé (lab local, VM, réseau Docker dédié).
-
 ## Sommaire
 
 - [Architecture](#architecture)
