@@ -4,7 +4,7 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(100) UNIQUE NOT NULL,
     email VARCHAR(200) UNIQUE NOT NULL,
-    -- VULN: passwords stored as MD5 (weak cryptography)
+    -- Md5 pass so very weak
     password_hash VARCHAR(64) NOT NULL,
     role VARCHAR(20) DEFAULT 'student',
     full_name VARCHAR(200),
@@ -47,7 +47,6 @@ CREATE TABLE payments (
 CREATE TABLE admins (
     id SERIAL PRIMARY KEY,
     username VARCHAR(100) UNIQUE NOT NULL,
-    -- VULN: admin password stored as MD5("admin123") = 0192023a7bbd73250516f069df18b500
     password_hash VARCHAR(64) NOT NULL,
     email VARCHAR(200)
 );
@@ -60,9 +59,7 @@ CREATE TABLE audit_logs (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
--- Sample data
 
--- VULN: MD5 hashes (md5("password123") = 482c811da5d5b4bc6d497ffa98491e38)
 INSERT INTO users (username, email, password_hash, role, full_name, ic_number) VALUES
 ('ali_hassan',    'ali.hassan@student.edu.my',    '482c811da5d5b4bc6d497ffa98491e38', 'student',  'Ali Hassan',    '001234-56-7890'),
 ('siti_rahman',   'siti.rahman@student.edu.my',   '482c811da5d5b4bc6d497ffa98491e38', 'student',  'Siti Rahman',   '002345-67-8901'),
@@ -70,7 +67,6 @@ INSERT INTO users (username, email, password_hash, role, full_name, ic_number) V
 ('nurul_aziz',    'nurul.aziz@student.edu.my',     '482c811da5d5b4bc6d497ffa98491e38', 'student',  'Nurul Aziz',    '004567-89-0123'),
 ('raj_kumar',     'raj.kumar@teacher.edu.my',      '482c811da5d5b4bc6d497ffa98491e38', 'teacher',  'Raj Kumar',     '005678-90-1234');
 
--- admin password = "admin123" (MD5)
 INSERT INTO admins (username, password_hash, email) VALUES
 ('admin', '0192023a7bbd73250516f069df18b500', 'admin@myeduconnect.com.my'),
 ('user', '482c811da5d5b4bc6d497ffa98491e38', 'user@myeduconnect.com.ny');
